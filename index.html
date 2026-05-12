@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Luis Guillermo Flores Ramírez | Portafolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #030a05;
+  --bg2: #060f08;
+  --bg3: #0a1a0e;
+  --panel: #0c1f10;
+  --card: #0e2415;
+  --green-dim: #0b3318;
+  --green-mid: #1a5c2e;
+  --green-sat: #00b84a;
+  --green-neon: #00ff7f;
+  --green-glow: #39ffaa;
+  --text-pri: #c8ffd8;
+  --text-sec: #6abf8a;
+  --text-dim: #2e6644;
+  --border: #1a5c2e;
+  --border-hi: #00c853;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text-pri);font-family:'Rajdhani',sans-serif;overflow-x:hidden;}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--green-mid);}
+::-webkit-scrollbar-thumb:hover{background:var(--green-sat);}
+
+/* ===== INTRO ===== */
+#intro{
+  position:fixed;inset:0;background:#000;z-index:9999;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;
+  overflow:hidden;
+}
+#intro.gone{animation:fadeOut 1.2s ease forwards;}
+@keyframes fadeOut{to{opacity:0;pointer-events:none;}}
+
+#intro-canvas{position:absolute;inset:0;}
+
+.intro-panels{
+  position:relative;z-index:10;
+  display:flex;gap:16px;
+}
+
+.intro-panel{
+  width:260px;height:260px;
+  border:1.5px solid var(--green-mid);
+  background:rgba(0,25,10,0.9);
+  position:relative;overflow:hidden;
+  clip-path:polygon(0 0,calc(100% - 18px) 0,100% 18px,100% 100%,18px 100%,0 calc(100% - 18px));
+}
+
+.intro-panel::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 50% 50%,rgba(0,255,127,0.04),transparent 70%);
+}
+
+.intro-panel-inner{
+  position:absolute;inset:8px;
+  border:1px solid rgba(0,255,127,0.12);
+  clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px));
+}
+
+.lg-letter{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Orbitron',sans-serif;font-size:150px;font-weight:900;
+  color:transparent;
+  -webkit-text-stroke:2px var(--green-neon);
+  opacity:0;
+  filter:drop-shadow(0 0 20px var(--green-neon)) drop-shadow(0 0 40px var(--green-sat));
+}
+.lg-letter.lit{
+  animation:letterLit 0.7s ease forwards;
+}
+@keyframes letterLit{
+  0%{opacity:0;filter:drop-shadow(0 0 0px transparent);}
+  40%{opacity:1;filter:drop-shadow(0 0 30px var(--green-neon)) drop-shadow(0 0 60px var(--green-sat));}
+  70%{opacity:0.7;filter:drop-shadow(0 0 10px var(--green-neon));}
+  100%{opacity:1;filter:drop-shadow(0 0 20px var(--green-neon)) drop-shadow(0 0 40px var(--green-sat));}
+}
+
+.scan-h{
+  position:absolute;left:0;right:0;height:1.5px;
+  background:linear-gradient(90deg,transparent,var(--green-neon),transparent);
+  top:-2px;opacity:0;
+}
+.scan-h.go{animation:scanDown 1.4s ease 0.2s forwards;}
+@keyframes scanDown{
+  0%{top:0;opacity:1;}60%{opacity:0.8;}100%{top:100%;opacity:0;}
+}
+.panel-g .scan-h.go{animation-delay:0.5s;}
+
+.panel-corner{position:absolute;width:12px;height:12px;}
+.c-tl{top:0;left:0;border-top:2px solid var(--green-neon);border-left:2px solid var(--green-neon);}
+.c-tr{top:0;right:0;border-top:2px solid var(--green-neon);border-right:2px solid var(--green-neon);}
+.c-bl{bottom:0;left:0;border-bottom:2px solid var(--green-neon);border-left:2px solid var(--green-neon);}
+.c-br{bottom:0;right:0;border-bottom:2px solid var(--green-neon);border-right:2px solid var(--green-neon);}
+
+.intro-name{
+  position:relative;z-index:10;
+  margin-top:24px;
+  font-family:'Share Tech Mono',monospace;
+  font-size:11px;letter-spacing:5px;
+  color:var(--green-sat);
+  overflow:hidden;width:0;white-space:nowrap;
+  animation:typeIn 1.8s steps(35,end) 1.4s forwards;
+}
+@keyframes typeIn{to{width:360px;}}
+
+.intro-status{
+  position:absolute;bottom:28px;
+  font-family:'Share Tech Mono',monospace;font-size:10px;
+  color:var(--green-sat);letter-spacing:3px;
+  display:flex;align-items:center;gap:8px;
+}
+.status-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--green-neon);
+  animation:pulse 1s infinite;
+}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.2;}}
+.blink{animation:blink 0.8s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0;}}
+
+/* ===== NAVBAR ===== */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:14px 60px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(3,10,5,0.88);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(0,255,127,0.12);
+}
+.nav-logo{
+  font-family:'Orbitron',sans-serif;font-size:24px;font-weight:900;
+  color:var(--green-neon);letter-spacing:4px;
+  filter:drop-shadow(0 0 12px rgba(0,255,127,0.5));
+}
+.nav-links{display:flex;gap:28px;list-style:none;}
+.nav-links a{
+  font-family:'Share Tech Mono',monospace;
+  color:var(--text-sec);text-decoration:none;
+  font-size:11px;letter-spacing:2px;text-transform:uppercase;
+  transition:all 0.25s;position:relative;
+}
+.nav-links a::after{
+  content:'';position:absolute;bottom:-4px;left:0;
+  width:0;height:1px;background:var(--green-neon);transition:width 0.25s;
+}
+.nav-links a:hover{color:var(--green-neon);filter:drop-shadow(0 0 6px rgba(0,255,127,0.6));}
+.nav-links a:hover::after{width:100%;}
+.nav-avail{
+  display:flex;align-items:center;gap:8px;
+  font-family:'Share Tech Mono',monospace;font-size:10px;
+  color:var(--green-sat);letter-spacing:2px;
+}
+.nav-avail-dot{width:7px;height:7px;border-radius:50%;background:var(--green-neon);animation:pulse 2s infinite;}
+
+/* ===== SECTION LAYOUT ===== */
+main{padding-top:68px;}
+section{padding:90px 80px;position:relative;}
+.sec-tag{
+  font-family:'Share Tech Mono',monospace;font-size:10px;
+  color:var(--green-sat);letter-spacing:4px;text-transform:uppercase;
+  margin-bottom:6px;
+}
+.sec-title{
+  font-family:'Orbitron',sans-serif;font-size:32px;font-weight:700;
+  color:var(--text-pri);margin-bottom:12px;letter-spacing:1px;
+}
+.sec-line{
+  width:50px;height:2px;background:var(--green-neon);margin-bottom:50px;
+  box-shadow:0 0 8px var(--green-neon);
+}
+
+/* ===== HERO ===== */
+#hero{
+  min-height:100vh;display:flex;align-items:center;
+  padding:0 80px;position:relative;overflow:hidden;
+}
+.hero-grid-bg{
+  position:absolute;inset:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(0,255,127,0.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,255,127,0.025) 1px,transparent 1px);
+  background-size:44px 44px;
+}
+.hero-glow{
+  position:absolute;top:40%;left:30%;
+  width:600px;height:600px;border-radius:50%;
+  background:radial-gradient(circle,rgba(0,100,40,0.12),transparent 70%);
+  pointer-events:none;
+}
+.hero-content{position:relative;z-index:1;}
+.hero-tag{
+  font-family:'Share Tech Mono',monospace;font-size:11px;
+  color:var(--green-sat);letter-spacing:4px;margin-bottom:16px;
+}
+.hero-name{
+  font-family:'Orbitron',sans-serif;
+  font-size:clamp(34px,5vw,60px);font-weight:900;
+  line-height:1.1;color:var(--text-pri);
+}
+.hero-name .hl{
+  color:var(--green-neon);
+  filter:drop-shadow(0 0 15px rgba(0,255,127,0.4));
+}
+.hero-subtitle{
+  font-size:17px;color:var(--text-sec);margin-top:14px;
+  letter-spacing:0.5px;font-weight:400;
+}
+.hero-divider{
+  width:1px;height:50px;
+  background:linear-gradient(var(--green-neon),transparent);
+  margin:28px 0;
+}
+.hero-btns{display:flex;gap:16px;}
+.btn{
+  padding:11px 28px;
+  font-family:'Share Tech Mono',monospace;font-size:12px;letter-spacing:2px;
+  cursor:pointer;text-decoration:none;transition:all 0.3s;display:inline-flex;align-items:center;gap:8px;
+  clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));
+}
+.btn-solid{
+  background:rgba(0,255,127,0.12);border:1px solid var(--green-neon);color:var(--green-neon);
+}
+.btn-solid:hover{background:rgba(0,255,127,0.22);box-shadow:0 0 20px rgba(0,255,127,0.2);}
+.btn-ghost{
+  background:transparent;border:1px solid var(--green-mid);color:var(--text-sec);
+}
+.btn-ghost:hover{border-color:var(--green-sat);color:var(--green-sat);}
+
+.hero-lg-bg{
+  position:absolute;right:-40px;top:50%;transform:translateY(-50%);
+  font-family:'Orbitron',sans-serif;font-size:420px;font-weight:900;
+  color:transparent;-webkit-text-stroke:1px rgba(0,255,127,0.06);
+  line-height:1;pointer-events:none;user-select:none;letter-spacing:-20px;
+}
+.hero-stats{
+  display:flex;gap:40px;margin-top:36px;
+}
+.hero-stat-val{
+  font-family:'Orbitron',sans-serif;font-size:28px;font-weight:700;
+  color:var(--green-neon);filter:drop-shadow(0 0 8px rgba(0,255,127,0.4));
+}
+.hero-stat-label{
+  font-family:'Share Tech Mono',monospace;font-size:10px;
+  color:var(--text-dim);letter-spacing:2px;margin-top:2px;
+}
+
+/* ===== EXPERIENCE ===== */
+#experiencia{background:rgba(6,15,8,0.6);}
+.exp-layout{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;}
+
+.exp-left{display:flex;flex-direction:column;gap:12px;}
+
+.exp-btn{
+  padding:20px 22px;text-align:left;cursor:pointer;
+  background:var(--card);border:1px solid var(--green-dim);
+  border-left:3px solid transparent;transition:all 0.3s;
+  clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,0 100%);
+  position:relative;overflow:hidden;
+}
+.exp-btn::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,rgba(0,255,127,0.04),transparent);
+  opacity:0;transition:opacity 0.3s;
+}
+.exp-btn:hover::after,.exp-btn.active::after{opacity:1;}
+.exp-btn.active{
+  border-left-color:var(--green-neon);
+  background:rgba(0,255,127,0.04);
+  box-shadow:-3px 0 16px rgba(0,255,127,0.15),inset 0 0 20px rgba(0,255,127,0.03);
+}
+.exp-btn:hover{border-color:var(--green-mid);border-left-color:var(--green-sat);}
+
+.exp-btn-co{
+  font-family:'Orbitron',sans-serif;font-size:12px;font-weight:700;
+  color:var(--green-neon);letter-spacing:1px;
+}
+.exp-btn.active .exp-btn-co{filter:drop-shadow(0 0 6px rgba(0,255,127,0.5));}
+.exp-btn-role{font-size:13px;color:var(--text-sec);margin-top:5px;}
+.exp-btn-period{
+  font-family:'Share Tech Mono',monospace;font-size:10px;
+  color:var(--text-dim);margin-top:3px;letter-spacing:1px;
+}
+
+.exp-right{position:sticky;top:84px;}
+
+.exp-placeholder{
+  border:1px dashed rgba(0,255,127,0.12);
+  padding:60px 20px;text-align:center;
+  clip-path:polygon(0 0,calc(100% - 20px) 0,100% 20px,100% 100%,20px 100%,0 calc(100% - 20px));
+}
+.exp-placeholder p{
+  font-family:'Share Tech Mono',monospace;font-size:11px;
+  color:var(--text-dim);letter-spacing:3px;
+}
+
+.exp-detail{display:none;}
+.exp-detail.on{display:block;animation:slideIn 0.35s ease;}
+@keyframes slideIn{from{opacity:0;transform:translateX(16px);}to{opacity:1;transform:translateX(0);}}
+
+.exp-panel{
+  background:rgba(10,26,14,0.9);
+  backdrop-filter:blur(8px);
+  border:1px solid var(--green-mid);padding:28px;
+  clip-path:polygon(0 0,calc(100% - 20px) 0,100% 20px,100% 100%,20px 100%,0 calc(100% - 20px));
+  position:relative;overflow:hidden;
+}
+.exp-panel::before{
+  content:'';position:absolute;top:-40px;right:-40px;
+  width:180px;height:180px;border-radius:50%;
+  background:radial-gradient(circle,rgba(0,255,127,0.04),transparent 70%);
+}
+.exp-panel-role{
+  font-family:'Orbitron',sans-serif;font-size:18px;font-weight:700;
+  color:var(--green-neon);filter:drop-shadow(0 0 8px rgba(0,255,127,0.3));
+  letter-spacing:0.5px;
+}
+.exp-panel-co{
+  font-family:'Share Tech Mono',monospace;font-size:12px;
+  color:var(--text-sec);margin-top:6px;letter-spacing:2px;
+}
+.exp-panel-period{
+  font-family:'Share Tech Mono',monospace;font-size:10px;
+  color:var(--text-dim);margin-top:4px;letter-spacing:1px;
+}
+.exp-divider{
+  height:1px;
+  background:linear-gradient(90deg,rgba(0,255,127,0.3),transparent);
+  margin:18px 0;
+}
+.exp-tasks{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.exp-tasks li{
+  font-size:14px;color:var(--text-sec);line-height:1.6;
+  padding-left:18px;position:relative;
+}
+.exp-tasks li::before{
+  content:'▸';position:absolute;left:0;
+  color:var(--green-neon);font-size:11px;top:2px;
+}
+.exp-tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:18px;}
+.exp-tag{
+  padding:4px 11px;
+  background:rgba(0,255,127,0.06);border:1px solid rgba(0,200,80,0.2);
+  font-family:'Share Tech Mono',monospace;font-size:10px;
+  color:var(--green-sat);letter-spacing:1px;
+}
+
+/* ===== ABOUT ===== */
+#sobre-mi{position:relative;}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;}
+.about-intro{
+  font-size:15px;line-height:1.8;color:var(--text-sec);
+  margin-bottom:28px;
+}
+.data-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.data-item{}
+.data-label{
+  font-family:'Share Tech Mono',monospace;font-size:10px;
+  color:var(--text-dim);letter-spacing:2px;text-transform:uppercase;margin-bottom:3px;
+}
+.data-val{font-size:14px;color:var(--text-pri);}
+.data-val a{color:var(--green-neon);text-decoration:none;}
+.avail-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  color:var(--green-neon);font-size:14px;
+}
+.avail-badge::before{content:'●';font-size:10px;animation:pulse 2s infinite;}
+
+.langs-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:22px;}
+.lang-item{
+  background:var(--card);border:1px solid var(--green-dim);
+  padding:12px 16px;display:flex;justify-content:space-between;align-items:center;
+}
+.lang-name{font-family:'Orbitron',monospace;font-size:12px;color:var(--text-pri);}
+.lang-lvl{
+  font-family:'Share Tech Mono',monospace;font-size:10px;
+  color:var(--green-sat);letter-spacing:1px;
+}
+
+.interests-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:30px;}
+.int-chip{
+  padding:12px 8px;text-align:center;
+  border:1px solid var(--green-dim);background:var(--card);
+  font-family:'Share Tech Mono',monospace;font-size:10px;
+  color:var(--text-sec);letter-spacing:1.5px;
+  transition:all 0.25s;
+  clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px));
+}
+.int-chip:hover{
+  border-color:var(--green-sat);color:var(--green-neon);
+  background:rgba(0,255,127,0.04);
+}
+
+.skill-cat{margin-bottom:22px;}
+.skill-cat-title{
+  font-family:'Share Tech Mono',monospace;font-size:10px;
+  color:var(--green-sat);letter-spacing:3px;margin-bottom:10px;
+}
+.skill-chips{display:flex;flex-wrap:wrap;gap:7px;}
+.s-chip{
+  padding:5px 13px;background:var(--card);
+  border:1px solid var(--green-dim);
+  font-family:'Share Tech Mono',monospace;font-size:10px;
+  color:var(--text-sec);letter-spacing:1px;transition:all 0.2s;
+}
+.s-chip:hover{border-color:var(--green-neon);color:var(--green-neon);}
+
+/* ===== CERTIFICATIONS ===== */
+#certs{background:rgba(6,15,8,0.6);}
+.certs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;}
+.cert-card{
+  background:var(--card);border:1px solid var(--green-dim);
+  padding:16px 18px;transition:all 0.25s;
+  clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,0 100%);
+}
+.cert-card:hover{border-color:var(--green-mid);background:rgba(0,255,127,0.03);}
+.cert-name{font-size:13px;color:var(--text-pri);font-weight:600;line-height:1.4;}
+.cert-provider{
+  font-family:'Share Tech Mono',monospace;font-size:10px;
+  color:var(--green-sat);margin-top:5px;letter-spacing:1px;
+}
+.cert-date{
+  font-family:'Share Tech Mono',monospace;font-size:9px;
+  color:var(--text-dim);margin-top:3px;
+}
+
+/* ===== CONTACT ===== */
+#contacto{position:relative;}
+.contact-wrap{
+  display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;
+}
+.contact-panel{
+  background:var(--card);border:1px solid var(--green-mid);padding:32px;
+  clip-path:polygon(0 0,calc(100% - 20px) 0,100% 20px,100% 100%,20px 100%,0 calc(100% - 20px));
+}
+.contact-item{
+  display:flex;align-items:flex-start;gap:16px;
+  padding:14px 0;border-bottom:1px solid var(--green-dim);
+}
+.contact-item:last-child{border-bottom:none;}
+.contact-icon{
+  width:38px;height:38px;flex-shrink:0;
+  border:1px solid var(--green-mid);
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;color:var(--green-neon);
+}
+.c-label{
+  font-family:'Share Tech Mono',monospace;font-size:10px;
+  color:var(--text-dim);letter-spacing:2px;
+}
+.c-val{font-size:14px;color:var(--text-pri);margin-top:2px;}
+.c-val a{color:var(--green-neon);text-decoration:none;}
+.c-val a:hover{text-decoration:underline;}
+
+.contact-cta{padding-top:10px;}
+.contact-cta-title{
+  font-family:'Orbitron',sans-serif;font-size:20px;font-weight:700;
+  color:var(--text-pri);margin-bottom:12px;
+}
+.contact-cta p{font-size:15px;color:var(--text-sec);line-height:1.7;margin-bottom:24px;}
+
+/* ===== FOOTER ===== */
+footer{
+  padding:28px 80px;
+  border-top:1px solid rgba(0,255,127,0.1);
+  display:flex;justify-content:space-between;align-items:center;
+}
+.footer-logo{
+  font-family:'Orbitron',sans-serif;font-size:18px;font-weight:900;
+  color:var(--green-neon);letter-spacing:4px;
+  filter:drop-shadow(0 0 8px rgba(0,255,127,0.3));
+}
+.footer-text{
+  font-family:'Share Tech Mono',monospace;font-size:10px;
+  color:var(--text-dim);letter-spacing:2px;
+}
+
+/* ===== DECORATIVE LINE ===== */
+.deco-line{
+  position:absolute;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(0,255,127,0.2),transparent);
+}
+</style>
+</head>
+<body>
+
+<!-- ████████████  INTRO  ████████████ -->
+<div id="intro">
+  <canvas id="intro-canvas"></canvas>
+
+  <div class="intro-panels">
+    <!-- Panel L -->
+    <div class="intro-panel panel-l">
+      <div class="intro-panel-inner"></div>
+      <div class="scan-h" id="scan-l"></div>
+      <div class="lg-letter" id="letter-l">L</div>
+      <div class="panel-corner c-tl"></div>
+      <div class="panel-corner c-tr"></div>
+      <div class="panel-corner c-bl"></div>
+      <div class="panel-corner c-br"></div>
+    </div>
+    <!-- Panel G -->
+    <div class="intro-panel panel-g">
+      <div class="intro-panel-inner"></div>
+      <div class="scan-h" id="scan-g"></div>
+      <div class="lg-letter" id="letter-g">G</div>
+      <div class="panel-corner c-tl"></div>
+      <div class="panel-corner c-tr"></div>
+      <div class="panel-corner c-bl"></div>
+      <div class="panel-corner c-br"></div>
+    </div>
+  </div>
+
+  <div class="intro-name" id="intro-name">LUIS GUILLERMO FLORES RAMÍREZ</div>
+
+  <div class="intro-status">
+    <div class="status-dot"></div>
+    <span id="status-txt">INICIALIZANDO SISTEMA</span>
+    <span class="blink">_</span>
+  </div>
+</div>
+
+<!-- ████████████  NAV  ████████████ -->
+<nav>
+  <div class="nav-logo">LG</div>
+  <ul class="nav-links">
+    <li><a href="#hero">INICIO</a></li>
+    <li><a href="#experiencia">EXPERIENCIA</a></li>
+    <li><a href="#sobre-mi">SOBRE MÍ</a></li>
+    <li><a href="#certs">CERTS</a></li>
+    <li><a href="#contacto">CONTACTO</a></li>
+  </ul>
+  <div class="nav-avail">
+    <div class="nav-avail-dot"></div>
+    DISPONIBLE
+  </div>
+</nav>
+
+<!-- ████████████  MAIN  ████████████ -->
+<main>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-tag">// ING. EN SISTEMAS COMPUTACIONALES · ESTADO DE MÉXICO</div>
+    <h1 class="hero-name">LUIS <span class="hl">GUILLERMO</span><br>FLORES RAMÍREZ</h1>
+    <p class="hero-subtitle">Desarrollador Web Jr. &nbsp;·&nbsp; Análisis de Datos &nbsp;·&nbsp; Ciberseguridad</p>
+    <div class="hero-divider"></div>
+    <div class="hero-btns">
+      <a href="#experiencia" class="btn btn-solid">VER EXPERIENCIA ▸</a>
+      <a href="#contacto" class="btn btn-ghost">CONTACTAR</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="hero-stat-val">3+</div>
+        <div class="hero-stat-label">PROYECTOS FREELANCE</div>
+      </div>
+      <div>
+        <div class="hero-stat-val">4</div>
+        <div class="hero-stat-label">IDIOMAS</div>
+      </div>
+      <div>
+        <div class="hero-stat-val">10+</div>
+        <div class="hero-stat-label">CERTIFICACIONES</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-lg-bg">LG</div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experiencia">
+  <div class="sec-tag">// 02 TRAYECTORIA PROFESIONAL</div>
+  <h2 class="sec-title">EXPERIENCIA</h2>
+  <div class="sec-line"></div>
+
+  <div class="exp-layout">
+
+    <!-- LEFT: Selector buttons -->
+    <div class="exp-left">
+
+      <button class="exp-btn" onclick="showExp('thesis')">
+        <div class="exp-btn-co">THESIS DRIVEN DASHBOARD</div>
+        <div class="exp-btn-role">Ingeniero Frontend Junior</div>
+        <div class="exp-btn-period">FEB 2026 — ABR 2026</div>
+      </button>
+
+      <button class="exp-btn" onclick="showExp('waterpartner')">
+        <div class="exp-btn-co">WATERPARTNER</div>
+        <div class="exp-btn-role">Desarrollador Web Freelance · WordPress</div>
+        <div class="exp-btn-period">MAR 2024 — DIC 2025</div>
+      </button>
+
+      <button class="exp-btn" onclick="showExp('santomenjurje')">
+        <div class="exp-btn-co">SANTO MENJURJE</div>
+        <div class="exp-btn-role">Desarrollador Web Freelance · Full</div>
+        <div class="exp-btn-period">FEB 2024 — ABR 2025</div>
+      </button>
+
+    </div>
+
+    <!-- RIGHT: Detail panel -->
+    <div class="exp-right">
+
+      <div class="exp-placeholder" id="exp-placeholder">
+        <p>[ SELECCIONA UNA EXPERIENCIA ]</p>
+      </div>
+
+      <!-- Thesis -->
+      <div class="exp-detail" id="exp-thesis">
+        <div class="exp-panel">
+          <div class="exp-panel-role">INGENIERO FRONTEND JR.</div>
+          <div class="exp-panel-co">thesisDrivenDashboard</div>
+          <div class="exp-panel-period">Febrero 2026 — Abril 2026</div>
+          <div class="exp-divider"></div>
+          <ul class="exp-tasks">
+            <li>Desarrollo de componentes de interfaz con React, TypeScript y Tailwind CSS v4 siguiendo convenciones de design system.</li>
+            <li>Documentación de componentes UI en Storybook para equipos de diseño y desarrollo.</li>
+            <li>Configuración de herramientas de calidad de código (linting, formatting).</li>
+            <li>Gestión de flujo de trabajo colaborativo con Git y ramas de features.</li>
+            <li>Implementación de TanStack Table con ordenamiento, filtrado global y paginación avanzada.</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="exp-tag">React</span>
+            <span class="exp-tag">TypeScript</span>
+            <span class="exp-tag">Tailwind CSS v4</span>
+            <span class="exp-tag">Storybook</span>
+            <span class="exp-tag">TanStack Table</span>
+            <span class="exp-tag">Git</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- WaterPartner -->
+      <div class="exp-detail" id="exp-waterpartner">
+        <div class="exp-panel">
+          <div class="exp-panel-role">DESARROLLADOR WEB FREELANCE</div>
+          <div class="exp-panel-co">WaterPartner</div>
+          <div class="exp-panel-period">Marzo 2024 — Diciembre 2025</div>
+          <div class="exp-divider"></div>
+          <ul class="exp-tasks">
+            <li>Desarrollo y administración de sitio en WordPress con ajustes de diseño personalizados.</li>
+            <li>Soporte continuo y mejoras iterativas alineadas a los objetivos de negocio del cliente.</li>
+            <li>Configuración de páginas clave, formularios de contacto y estructura SEO on-page básica.</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="exp-tag">WordPress</span>
+            <span class="exp-tag">SEO on-page</span>
+            <span class="exp-tag">HTML</span>
+            <span class="exp-tag">CSS</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Santo Menjurje -->
+      <div class="exp-detail" id="exp-santomenjurje">
+        <div class="exp-panel">
+          <div class="exp-panel-role">DESARROLLADOR WEB FREELANCE</div>
+          <div class="exp-panel-co">Santo Menjurje</div>
+          <div class="exp-panel-period">Febrero 2024 — Abril 2025</div>
+          <div class="exp-divider"></div>
+          <ul class="exp-tasks">
+            <li>Diseño, desarrollo y mantenimiento del sitio desde cero con HTML, CSS y JavaScript.</li>
+            <li>Actualización de contenido digital y coordinación del calendario de publicaciones en redes sociales.</li>
+            <li>Levantamiento de requisitos y comunicación directa y continua con el cliente.</li>
+            <li>Hardening básico del sitio: backups, actualización de dependencias y optimización de carga.</li>
+            <li>Gestión de contenido en Instagram y TikTok para incrementar el tráfico al sitio web.</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="exp-tag">HTML</span>
+            <span class="exp-tag">CSS</span>
+            <span class="exp-tag">JavaScript</span>
+            <span class="exp-tag">Instagram</span>
+            <span class="exp-tag">TikTok</span>
+            <span class="exp-tag">SEO</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="sobre-mi">
+  <div class="sec-tag">// 03 PERFIL PERSONAL</div>
+  <h2 class="sec-title">SOBRE MÍ</h2>
+  <div class="sec-line"></div>
+
+  <div class="about-grid">
+
+    <!-- Left col -->
+    <div>
+      <p class="about-intro">
+        Ingeniero en Sistemas Computacionales recién egresado, apasionado por construir soluciones digitales
+        que impacten a las personas. Me especializo en desarrollo web frontend y análisis de datos, con experiencia
+        real en proyectos freelance donde llevé ideas desde el levantamiento de requerimientos hasta la entrega final.
+        Comunicación clara, aprendizaje rápido y alto sentido de responsabilidad son mis principales diferenciadores.
+      </p>
+
+      <div class="data-grid">
+        <div class="data-item">
+          <div class="data-label">Edad</div>
+          <div class="data-val">23 años</div>
+        </div>
+        <div class="data-item">
+          <div class="data-label">Estado civil</div>
+          <div class="data-val">Soltero</div>
+        </div>
+        <div class="data-item">
+          <div class="data-label">Ubicación</div>
+          <div class="data-val">Estado de México</div>
+        </div>
+        <div class="data-item">
+          <div class="data-label">Perfil</div>
+          <div class="data-val">Freelance / Jr.</div>
+        </div>
+        <div class="data-item">
+          <div class="data-label">Email</div>
+          <div class="data-val"><a href="mailto:luisg.f.rmz@gmail.com">luisg.f.rmz@gmail.com</a></div>
+        </div>
+        <div class="data-item">
+          <div class="data-label">Disponibilidad</div>
+          <div class="data-val avail-badge">Disponible</div>
+        </div>
+      </div>
+
+      <div style="margin-top:28px;">
+        <div class="sec-tag" style="margin-bottom:12px;">// IDIOMAS</div>
+        <div class="langs-grid">
+          <div class="lang-item"><span class="lang-name">Español</span><span class="lang-lvl">NATIVO</span></div>
+          <div class="lang-item"><span class="lang-name">Inglés</span><span class="lang-lvl">AVANZADO</span></div>
+          <div class="lang-item"><span class="lang-name">Alemán</span><span class="lang-lvl">BÁSICO</span></div>
+          <div class="lang-item"><span class="lang-name">Italiano</span><span class="lang-lvl">BÁSICO</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right col -->
+    <div>
+      <div class="sec-tag" style="margin-bottom:12px;">// INTERESES</div>
+      <div class="interests-grid">
+        <div class="int-chip">CIBERSEGURIDAD</div>
+        <div class="int-chip">INNOVACIÓN</div>
+        <div class="int-chip">DEV WEB</div>
+        <div class="int-chip">APPS MÓVILES</div>
+        <div class="int-chip">DATA ANALYSIS</div>
+        <div class="int-chip">AUTOMATIZACIÓN</div>
+      </div>
+
+      <div class="sec-tag" style="margin-bottom:16px;">// HABILIDADES TÉCNICAS</div>
+
+      <div class="skill-cat">
+        <div class="skill-cat-title">DESARROLLO WEB</div>
+        <div class="skill-chips">
+          <span class="s-chip">HTML</span><span class="s-chip">CSS</span>
+          <span class="s-chip">JavaScript</span><span class="s-chip">React</span>
+          <span class="s-chip">TypeScript</span><span class="s-chip">WordPress</span>
+          <span class="s-chip">SEO</span><span class="s-chip">Tailwind CSS</span>
+        </div>
+      </div>
+      <div class="skill-cat">
+        <div class="skill-cat-title">DATOS & ANÁLISIS</div>
+        <div class="skill-chips">
+          <span class="s-chip">Excel Avanzado</span><span class="s-chip">Power BI</span>
+          <span class="s-chip">R</span><span class="s-chip">Python</span>
+          <span class="s-chip">MS Access</span><span class="s-chip">Macros</span>
+        </div>
+      </div>
+      <div class="skill-cat">
+        <div class="skill-cat-title">OTROS LENGUAJES</div>
+        <div class="skill-chips">
+          <span class="s-chip">Java</span><span class="s-chip">C++</span><span class="s-chip">SQL</span>
+        </div>
+      </div>
+      <div class="skill-cat">
+        <div class="skill-cat-title">DIGITAL & SOFT SKILLS</div>
+        <div class="skill-chips">
+          <span class="s-chip">Instagram</span><span class="s-chip">TikTok</span>
+          <span class="s-chip">Git</span><span class="s-chip">Comunicación cliente</span>
+          <span class="s-chip">Gestión del tiempo</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certs">
+  <div class="sec-tag">// 04 FORMACIÓN CONTINUA</div>
+  <h2 class="sec-title">CERTIFICACIONES</h2>
+  <div class="sec-line"></div>
+
+  <div class="certs-grid">
+    <div class="cert-card">
+      <div class="cert-name">Optimización de Funnels de Ventas</div>
+      <div class="cert-provider">Netzun</div>
+      <div class="cert-date">Sep 2025</div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-name">Programación en R</div>
+      <div class="cert-provider">Netzun</div>
+      <div class="cert-date">Mar – Abr 2025</div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-name">Microsoft Access</div>
+      <div class="cert-provider">Netzun</div>
+      <div class="cert-date">Mar 2025</div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-name">Power BI Intermedio-Avanzado</div>
+      <div class="cert-provider">Netzun</div>
+      <div class="cert-date">Feb 2025</div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-name">Fundamentos Estadísticos</div>
+      <div class="cert-provider">Netzun</div>
+      <div class="cert-date">Feb – Mar 2025</div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-name">Persuasión e Influencia en Ventas</div>
+      <div class="cert-provider">Netzun</div>
+      <div class="cert-date">2025</div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-name">Excel Avanzado</div>
+      <div class="cert-provider">Productificados</div>
+      <div class="cert-date">Nov – Dic 2024</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contacto">
+  <div class="sec-tag">// 05 COMUNICACIÓN</div>
+  <h2 class="sec-title">CONTACTO</h2>
+  <div class="sec-line"></div>
+
+  <div class="contact-wrap">
+
+    <div class="contact-panel">
+      <div class="contact-item">
+        <div class="contact-icon">✉</div>
+        <div>
+          <div class="c-label">EMAIL</div>
+          <div class="c-val"><a href="mailto:luisg.f.rmz@gmail.com">luisg.f.rmz@gmail.com</a></div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">☎</div>
+        <div>
+          <div class="c-label">TELÉFONO</div>
+          <div class="c-val">55 4876 6140</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">◎</div>
+        <div>
+          <div class="c-label">UBICACIÓN</div>
+          <div class="c-val">Estado de México, México</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">⚙</div>
+        <div>
+          <div class="c-label">DISPONIBILIDAD</div>
+          <div class="c-val avail-badge">Disponible para proyectos</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-cta">
+      <div class="contact-cta-title">¿Tienes un proyecto en mente?</div>
+      <p>
+        Estoy en búsqueda activa de oportunidades como desarrollador frontend Jr.
+        o posiciones de análisis de datos. Si tienes un proyecto o vacante que creas
+        que encaja con mi perfil, no dudes en escribirme.
+      </p>
+      <a href="mailto:luisg.f.rmz@gmail.com" class="btn btn-solid">ENVIAR MENSAJE ▸</a>
+    </div>
+
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">LG</div>
+  <div class="footer-text">© 2026 LUIS GUILLERMO FLORES RAMÍREZ · ING. EN SISTEMAS COMPUTACIONALES</div>
+</footer>
+
+<!-- ████████████  SCRIPTS  ████████████ -->
+<script>
+/* ─── CIRCUIT CANVAS ─── */
+const canvas = document.getElementById('intro-canvas');
+const ctx = canvas.getContext('2d');
+function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
+resize();
+window.addEventListener('resize',resize);
+
+const N = 28;
+const pts = Array.from({length:N},()=>({
+  x:Math.random()*canvas.width,
+  y:Math.random()*canvas.height,
+  r:Math.random()*2+1,
+  a:Math.random()*0.4+0.05
+}));
+
+function drawCircuits(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  pts.forEach((p,i)=>{
+    pts.slice(i+1).forEach(q=>{
+      const d=Math.hypot(p.x-q.x,p.y-q.y);
+      if(d<200){
+        const alpha=(1-d/200)*0.25;
+        ctx.beginPath();
+        ctx.strokeStyle=`rgba(0,200,80,${alpha})`;
+        ctx.lineWidth=0.8;
+        ctx.moveTo(p.x,p.y);
+        ctx.lineTo(q.x,p.y);
+        ctx.lineTo(q.x,q.y);
+        ctx.stroke();
+      }
+    });
+    ctx.beginPath();
+    ctx.fillStyle=`rgba(0,255,127,${p.a})`;
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fill();
+  });
+}
+drawCircuits();
+
+/* ─── INTRO SEQUENCE ─── */
+const statusMessages=[
+  'INICIALIZANDO SISTEMA',
+  'CARGANDO MÓDULOS',
+  'VERIFICANDO IDENTIDAD',
+  'ESTABLECIENDO ENLACE',
+  'ACCESO CONCEDIDO'
+];
+let si=0;
+const stEl=document.getElementById('status-txt');
+const statusTimer=setInterval(()=>{
+  si++;
+  if(si<statusMessages.length) stEl.textContent=statusMessages[si];
+  else clearInterval(statusTimer);
+},900);
+
+/* Activate scans */
+setTimeout(()=>{
+  document.getElementById('scan-l').classList.add('go');
+},300);
+setTimeout(()=>{
+  document.getElementById('scan-g').classList.add('go');
+},600);
+
+/* Light up letters */
+setTimeout(()=>{ document.getElementById('letter-l').classList.add('lit'); },700);
+setTimeout(()=>{ document.getElementById('letter-g').classList.add('lit'); },1100);
+
+/* Dismiss intro */
+setTimeout(()=>{
+  document.getElementById('intro').classList.add('gone');
+  setTimeout(()=>{ document.getElementById('intro').style.display='none'; },1300);
+},5000);
+
+/* ─── EXPERIENCE SELECTOR ─── */
+function showExp(id){
+  document.querySelectorAll('.exp-detail').forEach(e=>e.classList.remove('on'));
+  document.querySelectorAll('.exp-btn').forEach(b=>b.classList.remove('active'));
+  const placeholder=document.getElementById('exp-placeholder');
+  if(placeholder) placeholder.style.display='none';
+  const panel=document.getElementById('exp-'+id);
+  if(panel) panel.classList.add('on');
+  document.querySelectorAll('.exp-btn').forEach(btn=>{
+    if(btn.getAttribute('onclick')&&btn.getAttribute('onclick').includes(id))
+      btn.classList.add('active');
+  });
+}
+</script>
+</body>
+</html>
