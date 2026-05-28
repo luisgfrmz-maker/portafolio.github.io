@@ -128,26 +128,80 @@ body{background:var(--bg);color:var(--text-pri);font-family:'Rajdhani',sans-seri
 .blink{animation:blink 0.8s infinite;}
 @keyframes blink{0%,100%{opacity:1;}50%{opacity:0;}}
 
-/* ===== LANG TOGGLE ===== */
-.lang-toggle{
-  font-family:'Share Tech Mono',monospace;
-  font-size:10px;letter-spacing:2px;
-  background:rgba(0,255,127,0.06);
-  border:1px solid var(--green-mid);
-  color:var(--green-sat);
-  padding:6px 14px;
-  cursor:pointer;
+/* ===== LANG DROPDOWN ===== */
+.lang-dropdown-wrap{position:relative;}
+.lang-toggle-btn{
+  font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;
+  background:rgba(0,255,127,0.06);border:1px solid var(--green-mid);
+  color:var(--text-sec);padding:7px 14px;cursor:pointer;
   clip-path:polygon(0 0,calc(100% - 6px) 0,100% 6px,100% 100%,6px 100%,0 calc(100% - 6px));
-  transition:all 0.25s;
-  display:flex;align-items:center;gap:6px;
+  transition:all 0.25s;display:flex;align-items:center;gap:7px;
 }
-.lang-toggle:hover{
-  background:rgba(0,255,127,0.14);
-  border-color:var(--green-neon);
-  color:var(--green-neon);
+.lang-toggle-btn:hover,.lang-toggle-btn.open{
+  background:rgba(0,255,127,0.12);border-color:var(--green-neon);color:var(--green-neon);
   box-shadow:0 0 10px rgba(0,255,127,0.15);
 }
-.lang-toggle .lang-icon{font-size:12px;}
+.lang-arrow{font-size:8px;transition:transform 0.25s;}
+.lang-toggle-btn.open .lang-arrow{transform:rotate(180deg);}
+.lang-menu{
+  display:none;position:absolute;top:calc(100% + 6px);right:0;
+  background:rgba(10,26,14,0.97);border:1px solid var(--green-mid);
+  backdrop-filter:blur(12px);min-width:140px;z-index:200;
+  clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,0 100%);
+  box-shadow:0 8px 24px rgba(0,0,0,0.6);
+}
+.lang-menu.open{display:block;animation:dropIn 0.2s ease;}
+@keyframes dropIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+.lang-option{
+  display:flex;align-items:center;gap:10px;
+  padding:11px 16px;cursor:pointer;
+  font-family:'Share Tech Mono',monospace;font-size:10px;
+  color:var(--text-sec);letter-spacing:2px;
+  border-bottom:1px solid rgba(0,255,127,0.07);transition:all 0.2s;
+}
+.lang-option:last-child{border-bottom:none;}
+.lang-option:hover{color:var(--green-neon);background:rgba(0,255,127,0.05);}
+.lang-option.active{color:var(--green-neon);}
+.lang-option.active::after{content:'✓';margin-left:auto;color:var(--green-neon);font-size:10px;}
+.lang-flag{font-size:14px;}
+
+/* ===== PROJECTS ===== */
+#proyectos{background:rgba(6,15,8,0.6);}
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;}
+.project-card{
+  background:var(--card);border:1px solid var(--green-dim);
+  padding:24px;transition:all 0.3s;position:relative;overflow:hidden;
+  clip-path:polygon(0 0,calc(100% - 16px) 0,100% 16px,100% 100%,16px 100%,0 calc(100% - 16px));
+}
+.project-card::before{
+  content:'';position:absolute;top:0;left:0;
+  width:3px;height:0;background:var(--green-neon);transition:height 0.3s ease;
+}
+.project-card:hover{border-color:var(--green-mid);background:rgba(0,255,127,0.03);}
+.project-card:hover::before{height:100%;}
+.project-type{
+  font-family:'Share Tech Mono',monospace;font-size:9px;
+  color:var(--green-sat);letter-spacing:3px;margin-bottom:10px;
+}
+.project-name{
+  font-family:'Orbitron',sans-serif;font-size:15px;font-weight:700;
+  color:var(--text-pri);margin-bottom:10px;letter-spacing:0.5px;
+}
+.project-desc{font-size:13px;color:var(--text-sec);line-height:1.7;margin-bottom:16px;}
+.project-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px;}
+.project-tag{
+  padding:3px 10px;background:rgba(0,255,127,0.06);
+  border:1px solid rgba(0,200,80,0.2);
+  font-family:'Share Tech Mono',monospace;font-size:9px;
+  color:var(--green-sat);letter-spacing:1px;
+}
+.project-link{
+  font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;
+  color:var(--green-neon);text-decoration:none;
+  display:inline-flex;align-items:center;gap:6px;
+  transition:all 0.2s;
+}
+.project-link:hover{filter:drop-shadow(0 0 6px rgba(0,255,127,0.5));}
 
 /* ===== NAVBAR ===== */
 nav{
@@ -487,15 +541,27 @@ footer{
   <ul class="nav-links">
     <li><a href="#hero"        data-i18n="nav.home">HOME</a></li>
     <li><a href="#experiencia" data-i18n="nav.experience">EXPERIENCE</a></li>
+    <li><a href="#proyectos"   data-i18n="nav.projects">PROJECTS</a></li>
     <li><a href="#sobre-mi"    data-i18n="nav.about">ABOUT ME</a></li>
     <li><a href="#certs"       data-i18n="nav.certs">CERTS</a></li>
     <li><a href="#contacto"    data-i18n="nav.contact">CONTACT</a></li>
   </ul>
   <div class="nav-right">
-    <button class="lang-toggle" id="lang-btn" onclick="toggleLang()" title="Switch language / Cambiar idioma">
-      <span class="lang-icon">🌐</span>
-      <span id="lang-label">ES</span>
-    </button>
+    <div class="lang-dropdown-wrap" id="langWrap">
+      <button class="lang-toggle-btn" id="langBtn" onclick="toggleDropdown()">
+        <span class="lang-flag" id="langFlag">🇺🇸</span>
+        <span id="lang-label">EN</span>
+        <span class="lang-arrow">▾</span>
+      </button>
+      <div class="lang-menu" id="langMenu">
+        <div class="lang-option active" id="opt-en" onclick="setLang('en')">
+          <span class="lang-flag">🇺🇸</span> ENGLISH
+        </div>
+        <div class="lang-option" id="opt-es" onclick="setLang('es')">
+          <span class="lang-flag">🇲🇽</span> ESPAÑOL
+        </div>
+      </div>
+    </div>
     <div class="nav-avail">
       <div class="nav-avail-dot"></div>
       <span data-i18n="nav.available">AVAILABLE</span>
@@ -637,6 +703,29 @@ footer{
       </div>
 
     </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="proyectos">
+  <div class="sec-tag"  data-i18n="proj.tag">// 03 PERSONAL PROJECTS</div>
+  <h2 class="sec-title" data-i18n="proj.title">PROJECTS</h2>
+  <div class="sec-line"></div>
+  <div class="projects-grid">
+
+    <div class="project-card">
+      <div class="project-type" data-i18n="proj1.type">// SECURITY TOOL · JAVASCRIPT</div>
+      <div class="project-name" data-i18n="proj1.name">Password Generator</div>
+      <p class="project-desc"   data-i18n="proj1.desc">Interactive tool that generates secure random passwords with custom length, character sets, and real-time strength indicator. Bilingual EN/ES interface.</p>
+      <div class="project-tags">
+        <span class="project-tag">HTML</span>
+        <span class="project-tag">CSS</span>
+        <span class="project-tag">JavaScript</span>
+        <span class="project-tag" data-i18n="proj1.tag.i18n">i18n</span>
+      </div>
+      <a href="password-generator.html" class="project-link" data-i18n="proj.link">VIEW PROJECT ▸</a>
+    </div>
+
   </div>
 </section>
 
@@ -1064,6 +1153,24 @@ const translations = {
 /* ─── LANGUAGE ENGINE ─── */
 let currentLang = 'en';
 
+// Add missing keys to translations
+translations.en['nav.projects']   = 'PROJECTS';
+translations.en['proj.tag']       = '// 03 PERSONAL PROJECTS';
+translations.en['proj.title']     = 'PROJECTS';
+translations.en['proj1.type']     = '// SECURITY TOOL · JAVASCRIPT';
+translations.en['proj1.name']     = 'Password Generator';
+translations.en['proj1.desc']     = 'Interactive tool that generates secure random passwords with custom length, character sets, and real-time strength indicator. Bilingual EN/ES interface.';
+translations.en['proj1.tag.i18n'] = 'i18n';
+translations.en['proj.link']      = 'VIEW PROJECT ▸';
+translations.es['nav.projects']   = 'PROYECTOS';
+translations.es['proj.tag']       = '// 03 PROYECTOS PERSONALES';
+translations.es['proj.title']     = 'PROYECTOS';
+translations.es['proj1.type']     = '// HERRAMIENTA DE SEGURIDAD · JAVASCRIPT';
+translations.es['proj1.name']     = 'Generador de Contraseñas';
+translations.es['proj1.desc']     = 'Herramienta interactiva que genera contraseñas seguras y aleatorias con longitud personalizada, tipos de caracteres e indicador de fortaleza en tiempo real. Interfaz bilingüe EN/ES.';
+translations.es['proj1.tag.i18n'] = 'i18n';
+translations.es['proj.link']      = 'VER PROYECTO ▸';
+
 function applyLang(l) {
   currentLang = l;
   const T = translations[l];
@@ -1077,18 +1184,36 @@ function applyLang(l) {
     if (T[key] !== undefined) el.textContent = T[key];
   });
 
-  // Show verified badge on new certs
   document.querySelectorAll('.cert-badge').forEach(b => {
     b.style.display = 'inline-block';
   });
 
-  // Toggle button label
-  document.getElementById('lang-label').textContent = l === 'en' ? 'ES' : 'EN';
+  // Update dropdown UI
+  document.getElementById('lang-label').textContent = l.toUpperCase();
+  document.getElementById('langFlag').textContent = l === 'en' ? '🇺🇸' : '🇲🇽';
+  document.getElementById('opt-en').classList.toggle('active', l === 'en');
+  document.getElementById('opt-es').classList.toggle('active', l === 'es');
 }
 
-function toggleLang() {
-  applyLang(currentLang === 'en' ? 'es' : 'en');
+function setLang(l) {
+  applyLang(l);
+  closeDropdown();
 }
+
+/* ─── DROPDOWN ─── */
+function toggleDropdown() {
+  const menu = document.getElementById('langMenu');
+  const btn  = document.getElementById('langBtn');
+  const open = menu.classList.toggle('open');
+  btn.classList.toggle('open', open);
+}
+function closeDropdown() {
+  document.getElementById('langMenu').classList.remove('open');
+  document.getElementById('langBtn').classList.remove('open');
+}
+document.addEventListener('click', e => {
+  if (!document.getElementById('langWrap').contains(e.target)) closeDropdown();
+});
 
 // Default: English
 applyLang('en');
