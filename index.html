@@ -407,6 +407,22 @@ section{padding:90px 80px;position:relative;}
   font-family:'Share Tech Mono',monospace;font-size:10px;
   color:var(--green-sat);letter-spacing:1px;
 }
+.exp-site-link{
+  display:inline-flex;align-items:center;gap:7px;
+  margin-top:16px;
+  font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;
+  color:var(--green-neon);text-decoration:none;
+  border:1px solid rgba(0,255,127,0.25);
+  padding:7px 14px;
+  clip-path:polygon(0 0,calc(100% - 7px) 0,100% 7px,100% 100%,7px 100%,0 calc(100% - 7px));
+  transition:all 0.25s;
+  background:rgba(0,255,127,0.04);
+}
+.exp-site-link:hover{
+  background:rgba(0,255,127,0.12);
+  border-color:var(--green-neon);
+  box-shadow:0 0 12px rgba(0,255,127,0.2);
+}
 
 /* ===== ABOUT ===== */
 #sobre-mi{position:relative;}
@@ -677,6 +693,9 @@ footer{
             <span class="exp-tag">WordPress</span><span class="exp-tag">SEO on-page</span>
             <span class="exp-tag">HTML</span><span class="exp-tag">CSS</span>
           </div>
+          <a href="https://waterpartner.mx/" target="_blank" rel="noopener" class="exp-site-link" data-i18n="exp.visit">
+            ◎ VISIT SITE ▸
+          </a>
         </div>
       </div>
 
@@ -1069,6 +1088,7 @@ const translations = {
 
     'intro.0':'INITIALIZING SYSTEM','intro.1':'LOADING MODULES',
     'intro.2':'VERIFYING IDENTITY','intro.3':'ESTABLISHING LINK','intro.4':'ACCESS GRANTED',
+    'exp.visit':'◎ VISIT SITE ▸',
   },
   es: {
     'nav.home':'INICIO','nav.experience':'EXPERIENCIA','nav.about':'SOBRE MÍ',
@@ -1147,6 +1167,7 @@ const translations = {
 
     'intro.0':'INICIALIZANDO SISTEMA','intro.1':'CARGANDO MÓDULOS',
     'intro.2':'VERIFICANDO IDENTIDAD','intro.3':'ESTABLECIENDO ENLACE','intro.4':'ACCESO CONCEDIDO',
+    'exp.visit':'◎ VISITAR SITIO ▸',
   }
 };
 
